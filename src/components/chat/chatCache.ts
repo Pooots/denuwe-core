@@ -12,6 +12,7 @@ import type {
 import type { SocietyOverview } from '@/types/society'
 import { SOCIETY_OVERVIEW_KEY } from '@/components/society/societyUi'
 import { stopShowingTyping } from '@/components/chat/typing'
+import { POLL_MS } from '@/lib/polling'
 import { chatService } from '@/services/chatService'
 import { getRealtimeStatus } from '@/services/realtime'
 
@@ -32,11 +33,15 @@ export type MessagePages = InfiniteData<MessagePage, number | undefined>
 /** While connected, live events keep chat data current (and a reconnect refetches it); otherwise it goes stale normally. */
 export const chatStaleTime = () => (getRealtimeStatus() === 'connected' ? Infinity : 30_000)
 
+/** Without a live connection, chat data is fetched again every few seconds instead. */
+export const chatRefetchInterval = () => (getRealtimeStatus() === 'connected' ? false : POLL_MS)
+
 export function useConversations(enabled = true) {
   return useQuery({
     queryKey: CONVERSATIONS_KEY,
     queryFn: () => chatService.list(),
     staleTime: chatStaleTime,
+    refetchInterval: chatRefetchInterval,
     enabled,
   })
 }

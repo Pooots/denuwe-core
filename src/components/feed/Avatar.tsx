@@ -40,7 +40,7 @@ export function Avatar({
           src={src}
           alt={name}
           onError={() => setFailedSrc(src)}
-          className="size-full rounded-full bg-muted object-cover"
+          className="absolute inset-0 size-full rounded-full bg-muted object-cover"
         />
       ) : (
         <span

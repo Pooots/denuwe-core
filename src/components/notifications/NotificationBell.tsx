@@ -17,6 +17,7 @@ import {
 import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import type { AppNotification, NotificationList, NotificationType } from '@/types/notification'
+import { POLL_MS } from '@/lib/polling'
 import { cn } from '@/lib/utils'
 import { timeAgo } from '@/lib/time'
 import { Avatar } from '@/components/feed/Avatar'
@@ -235,7 +236,7 @@ export function NotificationBell({
   const query = useQuery({
     queryKey: NOTIFICATIONS_KEY,
     queryFn: () => notificationService.list(),
-    refetchInterval: 60_000,
+    refetchInterval: POLL_MS,
     staleTime: 30_000,
   })
   const markRead = useMutation({

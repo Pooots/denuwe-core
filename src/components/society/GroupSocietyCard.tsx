@@ -10,7 +10,7 @@ const SHOWN = 6
 
 /** Feed sidebar: create a group chat and jump into the groups you created or were added to. */
 export function GroupSocietyCard() {
-  const groups = useGroups(30_000)
+  const groups = useGroups()
   const [creating, setCreating] = useState(false)
   const list = groups.data?.data ?? []
 

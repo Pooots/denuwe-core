@@ -8,6 +8,7 @@ import { Modal } from '@/components/feed/Modal'
 import { toast } from '@/components/feed/Toaster'
 import { useSocietyOverview } from '@/components/society/societyUi'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { POLL_MS } from '@/lib/polling'
 import { timeAgo } from '@/lib/time'
 import { cn } from '@/lib/utils'
 import { apiErrorMessage, apiValidationErrors } from '@/services/authService'
@@ -16,12 +17,12 @@ import { groupService } from '@/services/groupService'
 export const GROUPS_KEY = ['society', 'groups'] as const
 export const groupMessagesKey = (groupId: number) => ['society', 'group-messages', groupId] as const
 
-export function useGroups(refetchInterval?: number, enabled = true) {
+export function useGroups(enabled = true) {
   return useQuery({
     queryKey: GROUPS_KEY,
     queryFn: () => groupService.list(),
     staleTime: 30_000,
-    refetchInterval,
+    refetchInterval: POLL_MS,
     enabled,
   })
 }

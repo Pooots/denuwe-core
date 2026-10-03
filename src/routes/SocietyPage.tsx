@@ -203,7 +203,7 @@ export default function SocietyPage() {
   const deferredSearch = useDeferredValue(search.trim())
 
   const overview = useSocietyOverview()
-  const groupsQuery = useGroups(15_000)
+  const groupsQuery = useGroups()
 
   const [openedWith, setOpenedWith] = useState<number | null>(null)
   const linked = withId && withId !== openedWith ? overview.data?.friends.find((p) => p.id === withId) : undefined

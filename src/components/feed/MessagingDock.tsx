@@ -451,10 +451,8 @@ export function MessagingDock({ user }: { user: AuthUser }) {
   useDismiss(menuRef, menuOpen, closeMenu)
 
   const [creatingGroup, setCreatingGroup] = useState(false)
-  // Group chats aren't live yet, so their list still polls while the dock is in use.
-  const polling = state.open || state.chat !== null ? 15_000 : undefined
   const overview = useSocietyOverview()
-  const groupsQuery = useGroups(polling)
+  const groupsQuery = useGroups()
   const friends = overview.data?.friends ?? []
   const groups = groupsQuery.data?.data ?? []
   const unreadTotal = (overview.data?.unread_count ?? 0) + (groupsQuery.data?.unread_count ?? 0)

@@ -3,6 +3,7 @@ import { Clock, LoaderCircle, UserCheck, UserPlus } from 'lucide-react'
 import type { ReactNode } from 'react'
 import type { Relationship, SocietyPerson } from '@/types/society'
 import { toast } from '@/components/feed/Toaster'
+import { POLL_MS } from '@/lib/polling'
 import { cn } from '@/lib/utils'
 import { timeAgo } from '@/lib/time'
 import { apiErrorMessage } from '@/services/authService'
@@ -13,12 +14,12 @@ export const SOCIETY_OVERVIEW_KEY = ['society', 'overview'] as const
 export const SOCIETY_PEOPLE_KEY = ['society', 'people'] as const
 export const societyProfileKey = (userId: number) => ['society', 'profile', userId] as const
 
-export function useSocietyOverview(refetchInterval?: number) {
+export function useSocietyOverview() {
   return useQuery({
     queryKey: SOCIETY_OVERVIEW_KEY,
     queryFn: () => societyService.overview(),
     staleTime: 30_000,
-    refetchInterval,
+    refetchInterval: POLL_MS,
   })
 }
 

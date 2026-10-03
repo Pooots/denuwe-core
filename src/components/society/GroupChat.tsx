@@ -10,6 +10,7 @@ import { toast } from '@/components/feed/Toaster'
 import { GAP_FOR_NEW_CLUSTER_MS, GAP_FOR_TIMESTAMP_MS, MessageBox, gap, stamp } from '@/components/society/ChatPanel'
 import { GROUPS_KEY, GroupAvatar, groupMessagesKey } from '@/components/society/groupUi'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { POLL_MS } from '@/lib/polling'
 import { cn } from '@/lib/utils'
 import { apiErrorMessage } from '@/services/authService'
 import { groupService } from '@/services/groupService'
@@ -25,7 +26,7 @@ export function useGroupConversation(group: SocietyGroup | null) {
     queryKey: groupMessagesKey(group?.id ?? 0),
     queryFn: () => groupService.messages(group?.id ?? 0),
     enabled: group !== null,
-    refetchInterval: 4000,
+    refetchInterval: POLL_MS,
   })
 
   const unread = group?.unread_count ?? 0

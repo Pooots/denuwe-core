@@ -79,7 +79,7 @@ export function RealtimeInbox() {
     userId,
   )
 
-  const groups = useGroups(undefined, live)
+  const groups = useGroups(live)
   useWatchEach(
     (groups.data?.data ?? []).slice(0, WATCH_LIMIT).map((g) => g.id),
     watchGroupTyping,

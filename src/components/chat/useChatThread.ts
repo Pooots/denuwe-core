@@ -4,6 +4,7 @@ import type { ChatMessage, MessagesReadEvent } from '@/types/chat'
 import {
   addPending,
   applyRead,
+  chatRefetchInterval,
   chatStaleTime,
   findPending,
   markRead,
@@ -18,7 +19,7 @@ import { useTypers, useTypingNotifier } from '@/components/chat/typing'
 import { toast } from '@/components/feed/Toaster'
 import { apiErrorMessage, authService } from '@/services/authService'
 import { chatService } from '@/services/chatService'
-import { joinPrivate, leavePrivate, watchPresence } from '@/services/realtime'
+import { isRealtimeConfigured, joinPrivate, leavePrivate, watchPresence } from '@/services/realtime'
 
 function subscribeVisibility(listener: () => void): () => void {
   document.addEventListener('visibilitychange', listener)
@@ -48,6 +49,7 @@ export function useChatThread(conversationId: number, active = true) {
     initialPageParam: undefined as number | undefined,
     getNextPageParam: (last) => (last.has_more && last.next_before ? last.next_before : undefined),
     staleTime: chatStaleTime,
+    refetchInterval: chatRefetchInterval,
   })
 
   const messages = useMemo(
@@ -109,7 +111,7 @@ export function useChatThread(conversationId: number, active = true) {
       try {
         const result = await chatService.send(conversationId, text, clientId)
         receiveMessage(qc, { ...result.data, client_id: clientId }, viewerId)
-        if (!result.live && !warnedOffline.current) {
+        if (!result.live && isRealtimeConfigured && !warnedOffline.current) {
           warnedOffline.current = true
           toast('Message saved, but live delivery is down. It will show up for them when they reconnect.', 'error')
         }
