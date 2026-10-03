@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link, Navigate, useParams } from '@tanstack/react-router'
 import { Clapperboard, Globe, Lock, MapPin, MessageCircle, Users } from 'lucide-react'
@@ -9,6 +10,7 @@ import { FeedNavbar } from '@/components/feed/FeedNavbar'
 import { MessagingDock } from '@/components/feed/MessagingDock'
 import { Toaster } from '@/components/feed/Toaster'
 import { ContactLinks } from '@/components/profile/ContactLinks'
+import { showVisitedBackground } from '@/components/profile/AppBackdrop'
 import { DiaryCard } from '@/components/profile/DiaryCard'
 import { ProfilePosts } from '@/components/profile/ProfilePosts'
 import { RelationshipActions, mutualLabel, societyProfileKey } from '@/components/society/societyUi'
@@ -167,12 +169,23 @@ export default function PersonPage() {
     enabled: Number.isInteger(userId) && userId > 0 && userId !== user?.id,
   })
 
+  const data = profile.data
+  const background = data?.background
+  const backgroundUrl = data?.background_url
+  const backgroundEffect = data?.background_effect
+  const loaded = data !== undefined
+  useEffect(
+    () =>
+      loaded
+        ? showVisitedBackground({ background, url: backgroundUrl, effect: backgroundEffect })
+        : undefined,
+    [loaded, background, backgroundUrl, backgroundEffect],
+  )
+
   if (!user) return null
   if (userId === user.id) return <Navigate to="/profile" />
-
-  const data = profile.data
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="app-page min-h-dvh">
       <FeedNavbar user={user} active="society" />
 
       <div className="mx-auto grid max-w-[1128px] gap-6 px-4 pt-6 pb-16 lg:grid-cols-[minmax(0,1fr)_300px]">

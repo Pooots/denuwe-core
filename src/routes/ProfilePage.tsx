@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Camera, Globe, MapPin, Pencil, Plus } from 'lucide-react'
+import { Camera, Globe, MapPin, Palette, Pencil, Plus } from 'lucide-react'
 import type { ReactNode } from 'react'
 import type { ProfileMedia } from '@/services/profileService'
 import type { AuthUser } from '@/types/auth'
@@ -8,6 +8,7 @@ import { Avatar } from '@/components/feed/Avatar'
 import { FeedNavbar } from '@/components/feed/FeedNavbar'
 import { MessagingDock } from '@/components/feed/MessagingDock'
 import { Toaster } from '@/components/feed/Toaster'
+import { BackgroundDialog } from '@/components/profile/BackgroundDialog'
 import { ContactLinks } from '@/components/profile/ContactLinks'
 import { DiaryCard } from '@/components/profile/DiaryCard'
 import { EditProfileDialog } from '@/components/profile/EditProfileDialog'
@@ -18,7 +19,7 @@ import { SocietyCard } from '@/components/profile/SocietyCard'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { cn } from '@/lib/utils'
 
-type Dialog = { kind: 'edit' } | { kind: 'photo'; type: ProfileMedia } | null
+type Dialog = { kind: 'edit' } | { kind: 'photo'; type: ProfileMedia } | { kind: 'background' } | null
 
 function Card({ children, className }: { children: ReactNode; className?: string }) {
   return <section className={cn('rounded-xl border border-border bg-white', className)}>{children}</section>
@@ -76,7 +77,7 @@ export default function ProfilePage() {
   const since = memberSince(user)
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="app-page min-h-dvh">
       <FeedNavbar user={user} active="me" />
 
       <div className="mx-auto grid max-w-[1128px] gap-6 px-4 pt-6 pb-16 lg:grid-cols-[minmax(0,1fr)_300px]">
@@ -88,14 +89,25 @@ export default function ProfilePage() {
               ) : (
                 <div className="vibe-gradient absolute inset-0 opacity-60" />
               )}
-              <button
-                type="button"
-                onClick={() => setDialog({ kind: 'photo', type: 'banner' })}
-                className="absolute top-3 right-3 flex h-9 items-center gap-1.5 rounded-full bg-white/90 px-3 text-[13px] font-semibold text-ink shadow-sm backdrop-blur transition hover:bg-white"
-              >
-                <Camera className="size-4" />
-                <span className="hidden sm:inline">{user.banner_url ? 'Edit banner' : 'Add banner'}</span>
-              </button>
+              <div className="absolute top-3 right-3 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setDialog({ kind: 'background' })}
+                  aria-label="Profile background"
+                  className="flex h-9 items-center gap-1.5 rounded-full bg-white/90 px-3 text-[13px] font-semibold text-ink shadow-sm backdrop-blur transition hover:bg-white"
+                >
+                  <Palette className="size-4" />
+                  <span className="hidden sm:inline">Background</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDialog({ kind: 'photo', type: 'banner' })}
+                  className="flex h-9 items-center gap-1.5 rounded-full bg-white/90 px-3 text-[13px] font-semibold text-ink shadow-sm backdrop-blur transition hover:bg-white"
+                >
+                  <Camera className="size-4" />
+                  <span className="hidden sm:inline">{user.banner_url ? 'Edit banner' : 'Add banner'}</span>
+                </button>
+              </div>
             </div>
 
             <div className="relative flow-root px-6 pb-6">
@@ -215,6 +227,7 @@ export default function ProfilePage() {
       <MessagingDock user={user} />
       {dialog?.kind === 'edit' ? <EditProfileDialog user={user} onClose={close} /> : null}
       {dialog?.kind === 'photo' ? <PhotoDialog type={dialog.type} user={user} onClose={close} /> : null}
+      {dialog?.kind === 'background' ? <BackgroundDialog user={user} onClose={close} /> : null}
       <Toaster />
     </div>
   )

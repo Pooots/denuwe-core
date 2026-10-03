@@ -10,7 +10,6 @@ import { MessagingDock } from '@/components/feed/MessagingDock'
 import { PostCard } from '@/components/feed/PostCard'
 import { PostComposer } from '@/components/feed/PostComposer'
 import { ProfileSidebar } from '@/components/feed/ProfileSidebar'
-import { ShortsStrip } from '@/components/feed/ShortsStrip'
 import { RightSidebar } from '@/components/feed/RightSidebar'
 import { Toaster } from '@/components/feed/Toaster'
 import { useFeed } from '@/components/feed/feedCache'
@@ -121,7 +120,7 @@ export default function FeedPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="app-page min-h-dvh">
       <FeedNavbar user={user} />
 
       <div className="grid grid-cols-1 gap-6 pt-2 sm:px-4 sm:pt-4 md:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[minmax(260px,1fr)_minmax(0,680px)_minmax(260px,1fr)] xl:gap-8">
@@ -133,12 +132,10 @@ export default function FeedPage() {
 
         <main className="w-full max-w-[680px] space-y-2 justify-self-center pb-16 max-sm:*:rounded-none max-sm:*:border-x-0 sm:space-y-4">
           <PostComposer user={user} onOpen={(mode) => setComposer({ mode })} />
-          <ShortsStrip user={user} />
-
           {shared.data ? (
             <div className="space-y-2 max-sm:*:rounded-none max-sm:*:border-x-0">
               <p className="px-4 text-xs font-semibold text-muted-foreground sm:px-1">
-                {shared.data.author.id === user.id ? 'Your post' : 'Shared with you'}
+                <span className="on-backdrop">{shared.data.author.id === user.id ? 'Your post' : 'Shared with you'}</span>
               </p>
               {renderEntry(shared.data, { hideable: false })}
             </div>
@@ -146,7 +143,7 @@ export default function FeedPage() {
 
           <div className="flex items-center gap-2 px-4 py-1 text-xs text-muted-foreground sm:px-0">
             <span className="h-px flex-1 bg-[#c4c9d4]" />
-            <span>
+            <span className="on-backdrop">
               Sort by: <span className="font-semibold text-ink">Recent</span>
             </span>
           </div>

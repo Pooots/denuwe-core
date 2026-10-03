@@ -294,7 +294,7 @@ export default function SocietyPage() {
   )
 
   return (
-    <div className="flex h-dvh flex-col bg-background max-sm:h-[min(100dvh,800px)]">
+    <div className="app-page flex h-dvh flex-col max-sm:h-[min(100dvh,800px)]">
       <FeedNavbar user={user} active="society" hideMobileTabs={chatOpen} />
 
       <div

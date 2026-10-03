@@ -390,14 +390,6 @@ export function FeedNavbar({
         </nav>
 
         <nav className="flex h-full items-stretch justify-self-end">
-          <NavItem
-            icon={<MessageCircle className="size-6" />}
-            label="Messages"
-            ariaLabel={unread ? `Messages, ${unread} unread` : 'Messages'}
-            active={active === 'messages'}
-            badge={unread || undefined}
-            onClick={() => void navigate({ to: '/messages' })}
-          />
           <NotificationBell>
             {({ open, unread: count, toggle }) => (
               <NavItem

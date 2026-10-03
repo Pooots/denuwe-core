@@ -66,6 +66,9 @@ export type UserProfile = Omit<SocietyPerson, 'relationship' | 'last_message' | 
   first_name: string
   relationship: Relationship | 'self'
   can_view: boolean
+  background?: string | null
+  background_url?: string | null
+  background_effect?: string | null
   pronouns?: string | null
   bio?: string | null
   website?: string | null

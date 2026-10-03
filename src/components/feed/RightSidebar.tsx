@@ -142,7 +142,7 @@ export function RightSidebar() {
         </div>
       </section>
 
-      <footer className="flex flex-wrap justify-center gap-x-3 gap-y-1 px-4 py-2 text-xs text-muted-foreground">
+      <footer className="on-backdrop flex flex-wrap justify-center gap-x-3 gap-y-1 px-4 py-2 text-xs text-muted-foreground">
         <span>About</span>
         <span>Accessibility</span>
         <span>Help Center</span>

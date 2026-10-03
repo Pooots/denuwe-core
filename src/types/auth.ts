@@ -11,6 +11,10 @@ export type AuthUser = {
   gender: Gender | null
   avatar_url: string | null
   banner_url: string | null
+  /** Profile page background: null (default), a template id, or "photo" (`background_url` with `background_effect`). */
+  background: string | null
+  background_url: string | null
+  background_effect: string | null
   headline: string | null
   pronouns: string | null
   location: string | null

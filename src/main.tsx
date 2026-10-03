@@ -21,6 +21,7 @@ import TournamentsPage from '@/routes/TournamentsPage'
 import TournamentPage from '@/routes/TournamentPage'
 import ShortsPage from '@/routes/ShortsPage'
 import { ACTIVITY_STAGES } from '@/components/activities/activityStages'
+import { AppBackdrop } from '@/components/profile/AppBackdrop'
 import { authService } from '@/services/authService'
 import { initPwa } from '@/lib/pwa'
 
@@ -28,7 +29,12 @@ document.title = import.meta.env.VITE_APP_TITLE || 'denuwe'
 initPwa()
 
 const rootRoute = createRootRoute({
-  component: () => <Outlet />,
+  component: () => (
+    <>
+      <AppBackdrop />
+      <Outlet />
+    </>
+  ),
 })
 
 const indexRoute = createRoute({

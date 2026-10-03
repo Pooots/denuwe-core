@@ -187,13 +187,13 @@ export default function ClubPage() {
   const club = data?.club
   const typeLabel = club ? CLUB_TYPE_LABEL[club.type].toLowerCase() : 'club'
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="app-page min-h-dvh">
       <FeedNavbar user={user} active="clubs" />
 
       <div className="mx-auto max-w-[1128px] px-4 pt-4 pb-16">
         <Link
           to="/clubs"
-          className="mb-3 inline-flex items-center gap-1 text-[13px] font-semibold text-ink/70 hover:text-ink"
+          className="on-backdrop mb-3 inline-flex items-center gap-1 text-[13px] font-semibold text-ink/70 hover:text-ink"
         >
           <ArrowLeft className="size-4" /> All clubs & communities
         </Link>

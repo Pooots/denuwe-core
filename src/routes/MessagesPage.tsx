@@ -241,7 +241,7 @@ export default function MessagesPage() {
   const chatOpen = openId !== null
 
   return (
-    <div className="flex h-dvh flex-col bg-background max-sm:h-[min(100dvh,800px)]">
+    <div className="app-page flex h-dvh flex-col max-sm:h-[min(100dvh,800px)]">
       <FeedNavbar user={user} active="messages" hideMobileTabs={chatOpen} />
 
       <div className="mx-auto grid min-h-0 w-full max-w-[1200px] flex-1 grid-rows-[minmax(0,1fr)] gap-3 p-3 max-sm:p-0 lg:grid-cols-[340px_minmax(0,1fr)]">

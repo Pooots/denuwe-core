@@ -85,7 +85,7 @@ export default function ClubsPage() {
   const others = all.filter((club) => !club.is_member)
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="app-page min-h-dvh">
       <FeedNavbar user={user} active="clubs" />
 
       <div className="mx-auto max-w-[1128px] space-y-6 px-4 pt-6 pb-16">
@@ -156,7 +156,7 @@ export default function ClubsPage() {
 
         {mine.length > 0 ? (
           <section>
-            <h2 className="mb-3 text-[17px] font-semibold text-ink">Your memberships</h2>
+            <h2 className="on-backdrop mb-3 w-fit text-[17px] font-semibold text-ink">Your memberships</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {mine.map((club) => (
                 <ClubCard key={club.id} club={club} />
@@ -167,7 +167,7 @@ export default function ClubsPage() {
 
         {clubs.isSuccess ? (
           <section>
-            <h2 className="mb-3 text-[17px] font-semibold text-ink">{deferredSearch ? 'Results' : 'Discover'}</h2>
+            <h2 className="on-backdrop mb-3 w-fit text-[17px] font-semibold text-ink">{deferredSearch ? 'Results' : 'Discover'}</h2>
             {others.length > 0 ? (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {others.map((club) => (

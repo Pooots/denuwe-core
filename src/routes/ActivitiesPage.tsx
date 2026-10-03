@@ -386,7 +386,7 @@ function Timeline({
                 isToday ? 'bg-emerald-500 ring-4 ring-emerald-500/20' : done ? 'bg-ink/25' : 'bg-brand-blue',
               )}
             />
-            <h2 className="flex items-baseline gap-2 text-[14px] font-semibold text-ink">
+            <h2 className="on-backdrop flex w-fit items-baseline gap-2 text-[14px] font-semibold text-ink">
               {dayLabel(key)}
               <span className="text-xs font-normal text-muted-foreground">
                 {isToday
@@ -816,7 +816,7 @@ export default function ActivitiesPage() {
   const editPersonal = (activity: PersonalActivity) => setPersonal({ activity })
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="app-page min-h-dvh">
       <FeedNavbar user={user} active="activities" />
 
       <div className="mx-auto max-w-[1128px] space-y-5 px-4 pt-6 pb-16">
@@ -879,7 +879,7 @@ export default function ActivitiesPage() {
             {board.data && stages ? (
               day ? (
                 <>
-                  <div className="mb-3 flex items-center gap-2 rounded-xl border border-brand-blue/30 bg-brand-blue/5 px-4 py-2 text-[13px] text-ink">
+                  <div className="mb-3 flex items-center gap-2 rounded-xl border border-brand-blue/30 bg-[#ecf0fa] px-4 py-2 text-[13px] text-ink">
                     <CalendarDays className="size-4 text-brand-blue" />
                     Showing <span className="font-semibold">{dayLabel(day)}</span>
                     <span className="ml-auto flex items-center gap-3">

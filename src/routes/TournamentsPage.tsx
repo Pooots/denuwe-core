@@ -72,7 +72,7 @@ function Section({ title, count, children }: { title: string; count: number; chi
   if (count === 0) return null
   return (
     <section>
-      <h2 className="mb-2 flex items-center gap-2 text-[14px] font-semibold text-ink">
+      <h2 className="on-backdrop mb-2 flex w-fit items-center gap-2 text-[14px] font-semibold text-ink">
         {title}
         <span className="rounded-full bg-muted px-1.5 text-[11px] leading-[18px] text-ink/60">{count}</span>
       </h2>
@@ -156,7 +156,7 @@ export default function TournamentsPage() {
   ]
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="app-page min-h-dvh">
       <FeedNavbar user={user} active="tournaments" />
 
       <div className="mx-auto max-w-[1128px] space-y-4 px-3 pt-4 pb-24 sm:space-y-5 sm:px-4 sm:pt-6 sm:pb-16">
