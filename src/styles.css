@@ -1,0 +1,503 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+body {
+  @apply m-0;
+  font-family: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme inline {
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+  --font-status: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-brand: 'Source Serif 4', ui-serif, Georgia, serif;
+  --font-hand: 'Caveat', 'Segoe Print', cursive;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-green: var(--brand-green);
+  --color-ink: var(--ink);
+}
+
+:root {
+  --radius: 0.875rem;
+  --background: #f6f7fc;
+  --foreground: #12172b;
+  --card: #ffffff;
+  --card-foreground: #12172b;
+  --primary: #2a6bd6;
+  --primary-foreground: #ffffff;
+  --secondary: #edf3fc;
+  --secondary-foreground: #1e3a8a;
+  --muted: #f3f4f9;
+  --muted-foreground: #6b7290;
+  --accent: #4a9fe6;
+  --accent-foreground: #ffffff;
+  --border: #e4e7f1;
+  --ring: #2a6bd6;
+  --gold: #f5b82e;
+  --gold-foreground: #3d2a00;
+  --success: #10b981;
+  --danger: #e11d48;
+  /* denuwe: navy wordmark, blue "d" mark, sky highlight. */
+  --brand-blue: #2a6bd6;
+  --brand-navy: #1e3a8a;
+  --brand-sky: #5aaee8;
+  --brand-green: #0f9d6b;
+  --ink: #12172b;
+}
+
+/* System status page keeps the original dark foundation palette. */
+.theme-dark {
+  --background: #0b0f1a;
+  --foreground: #eef1f8;
+  --card: #121829;
+  --card-foreground: #eef1f8;
+  --primary: #f3d27a;
+  --primary-foreground: #1a1405;
+  --secondary: #1a2236;
+  --secondary-foreground: #eef1f8;
+  --muted: #161d2f;
+  --muted-foreground: #8f99b3;
+  --accent: #c99a2e;
+  --accent-foreground: #1a1405;
+  --border: #232c44;
+  --ring: #f3d27a;
+  --gold: #e2b84f;
+  --gold-foreground: #1a1405;
+  --success: #34d399;
+  --danger: #fb7185;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: clip;
+    max-width: 100vw;
+  }
+}
+
+@keyframes status-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes status-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes status-flow {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 24px 0;
+  }
+}
+
+.status-rise {
+  animation: status-rise 0.7s ease-out both;
+}
+
+.status-rise-delay {
+  animation: status-rise 0.7s ease-out 0.12s both;
+}
+
+.status-rise-delay-2 {
+  animation: status-rise 0.7s ease-out 0.24s both;
+}
+
+.status-rise-delay-3 {
+  animation: status-rise 0.7s ease-out 0.36s both;
+}
+
+.status-orb {
+  animation: status-pulse 9s ease-in-out infinite;
+}
+
+.status-gold-line {
+  background: linear-gradient(90deg, transparent, #c99a2e 20%, #f3d27a 50%, #c99a2e 80%, transparent);
+  background-size: 200% 100%;
+  animation: status-shimmer 4s linear infinite;
+}
+
+.status-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 40%, transparent 100%);
+}
+
+.status-link-ok {
+  background-image: repeating-linear-gradient(90deg, var(--success) 0 12px, transparent 12px 24px);
+  animation: status-flow 0.9s linear infinite;
+}
+
+.status-link-error {
+  background-image: repeating-linear-gradient(90deg, var(--danger) 0 6px, transparent 6px 12px);
+}
+
+.status-link-loading {
+  background-image: repeating-linear-gradient(90deg, var(--muted-foreground) 0 6px, transparent 6px 12px);
+  animation: status-flow 1.6s linear infinite;
+}
+
+.brand-gradient {
+  background-image: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-blue) 55%, var(--brand-sky) 100%);
+}
+
+.brand-gradient-text {
+  background-image: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-sky) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.vibe-gradient {
+  background:
+    radial-gradient(120% 90% at 100% 0%, #7cc2f0 0%, transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, #1e3a8a 0%, transparent 60%),
+    linear-gradient(135deg, #2a6bd6 0%, #2552b3 55%, #4a9fe6 100%);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+.landing-float {
+  animation: landing-float 6s ease-in-out infinite;
+}
+
+.landing-float-delay {
+  animation: landing-float 7s ease-in-out 1.2s infinite;
+}
+
+/* Diary book: cream paper, ruled every 28px (pair with leading-7), red margin line. */
+.diary-paper {
+  background-color: #fdfaf1;
+}
+
+.diary-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgb(84 124 190 / 0.2) 27px,
+    rgb(84 124 190 / 0.2) 28px
+  );
+  background-position: 0 -5px;
+  background-attachment: local;
+}
+
+.diary-margin {
+  background-image: linear-gradient(
+    to right,
+    transparent 2.25rem,
+    rgb(220 90 90 / 0.35) 2.25rem,
+    rgb(220 90 90 / 0.35) calc(2.25rem + 1px),
+    transparent calc(2.25rem + 1px)
+  );
+}
+
+.diary-cover {
+  background-color: var(--brand-navy);
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 0.1), transparent 60%),
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.025) 0 2px, transparent 2px 6px);
+}
+
+.diary-endpaper {
+  background-color: #e8eef9;
+  background-image: radial-gradient(rgb(30 58 138 / 0.12) 1px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+
+.diary-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(30 58 138 / 0.25) transparent;
+}
+
+@keyframes diary-reveal {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* A turning leaf: two faces back to back, rotating around the spine. */
+@keyframes diary-flip-next {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes diary-flip-prev {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+/* One page at a time (phones): the page lifts away, or the earlier one lays back down. */
+@keyframes diary-lift-away {
+  0% {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(-100deg);
+    opacity: 0;
+  }
+}
+
+@keyframes diary-lift-in {
+  0% {
+    transform: rotateY(-100deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes diary-shade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+}
+
+.diary-reveal {
+  animation: diary-reveal 0.45s ease-out;
+}
+
+.diary-leaf {
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.25, 1);
+  animation-fill-mode: forwards;
+}
+
+.diary-leaf-next {
+  transform-origin: left center;
+  animation-name: diary-flip-next;
+}
+
+.diary-leaf-prev {
+  transform-origin: right center;
+  animation-name: diary-flip-prev;
+}
+
+.diary-leaf-away {
+  transform-origin: left center;
+  animation-name: diary-lift-away;
+}
+
+.diary-leaf-in {
+  transform-origin: left center;
+  animation-name: diary-lift-in;
+}
+
+.diary-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.diary-face-back {
+  transform: rotateY(180deg);
+}
+
+.diary-shade {
+  animation: diary-shade 0.7s ease-in-out forwards;
+}
+
+/* Folded page corner: grows on hover, click to turn. */
+.diary-corner::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease;
+}
+
+.diary-corner-next::before {
+  right: 0;
+  border-top-left-radius: 4px;
+  background: linear-gradient(315deg, #d9cfb4 0 50%, #f1e9d4 50% 100%);
+  box-shadow: -2px -2px 5px rgb(0 0 0 / 0.12);
+}
+
+.diary-corner-prev::before {
+  left: 0;
+  border-top-right-radius: 4px;
+  background: linear-gradient(45deg, #d9cfb4 0 50%, #f1e9d4 50% 100%);
+  box-shadow: 2px -2px 5px rgb(0 0 0 / 0.12);
+}
+
+.diary-corner:hover::before,
+.diary-corner:focus-visible::before {
+  width: 38px;
+  height: 38px;
+}
+
+/* Reactions: the tray rises from the Like button, each emoji pops in a beat after the last. */
+@keyframes reaction-tray {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes reaction-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.4);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.12);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes reaction-chosen {
+  0% {
+    transform: scale(0.5) rotate(-12deg);
+  }
+  55% {
+    transform: scale(1.3) rotate(6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+.reaction-tray {
+  transform-origin: 24px 100%;
+  animation: reaction-tray 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.reaction-pop {
+  animation: reaction-pop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+}
+
+.reaction-chosen {
+  animation: reaction-chosen 0.38s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reaction-tray,
+  .reaction-pop,
+  .reaction-chosen,
+  .landing-float,
+  .landing-float-delay,
+  .status-rise,
+  .status-rise-delay,
+  .status-rise-delay-2,
+  .status-rise-delay-3,
+  .status-orb,
+  .status-gold-line,
+  .status-link-ok,
+  .status-link-loading,
+  .diary-reveal,
+  .diary-leaf,
+  .diary-shade {
+    animation: none !important;
+  }
+}
